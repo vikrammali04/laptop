@@ -40,9 +40,9 @@ resolution = st.selectbox('Screen Resolution',sorted(['1920x1080','1366x768','16
 #cpu
 cpu = st.selectbox('CPU',sorted(df['Cpu brand'].unique()))
 
-hdd = st.selectbox('HDD(In GB)',[128,256,512,1024,2048])
+hdd = st.selectbox('HDD(In GB)',[0,128,256,512,1024,2048])
 
-ssd = st.selectbox('SSD(In GB)',[8,128,256,512,1024])
+ssd = st.selectbox('SSD(In GB)',[0,128,256,512,1024])
 
 gpu = st.selectbox('GPU',sorted(df['Gpu brand'].unique()))
 
@@ -60,6 +60,10 @@ if st.button('Predict Price'):
     if weight ==0:
         st.error('Please enter a valid Weight.')
         st.stop() 
+    if ssd==0 and hdd=0:
+       st.error('SSD and HDD both can not be zero.')
+       st.stop() 
+           
 
         
     ppi = None
