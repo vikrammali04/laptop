@@ -60,7 +60,7 @@ if st.button('Predict Price'):
     if weight ==0:
         st.error('Please enter a valid Weight.')
         st.stop() 
-    if ssd==0 and hdd=0:
+    if ssd==0 and hdd==0:
        st.error('SSD and HDD both can not be zero.')
        st.stop() 
            
