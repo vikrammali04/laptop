@@ -11,9 +11,10 @@ pipe = pickle.load(open(file_path,'rb'))
 df = pickle.load(open(file_path1,'rb'))
 
 st.title("Laptop Price Predictor")
-
+brands=df['Company'].unique()
+brands=brands[brands!='Apple']
 # brand
-company = st.selectbox('Brand',df['Company'].unique())
+company = st.selectbox('Brand',brands)
 
 # type of laptop
 type = st.selectbox('Type',df['TypeName'].unique())
@@ -45,8 +46,9 @@ hdd = st.selectbox('HDD(In GB)',[0,128,256,512,1024,2048])
 ssd = st.selectbox('SSD(In GB)',[0,128,256,512,1024])
 
 gpu = st.selectbox('GPU',sorted(df['Gpu brand'].unique()))
-
-os = st.selectbox('OS',df['os'].unique())
+os_type=df['os'].unique()
+os_type=os_type[os_type!='Mac']
+os = st.selectbox('OS',os_type)
 
 f   = st.selectbox('Frequency( In GHz )',sorted([2.3 , 1.8 , 2.5 , 2.7 , 3.1 , 3.  , 2.2 , 1.6 , 2.  , 2.8 , 1.2 ,
        2.9 , 2.4 , 1.44, 1.5 , 1.9 , 1.1 , 1.3 , 2.6 , 3.6 , 3.2 , 1.  ,
@@ -54,12 +56,13 @@ f   = st.selectbox('Frequency( In GHz )',sorted([2.3 , 1.8 , 2.5 , 2.7 , 3.1 , 3
 
 if st.button('Predict Price'):
     # query
-    if screen_size==0:
-        st.error('Please enter a valid screen size.')
+    if weight > 6 or weight <1:
+        st.error('Please enter a valid Weight. Weight must be between 1 and 6 kg.')
         st.stop() 
-    if weight ==0:
-        st.error('Please enter a valid Weight.')
+    if screen_size<10 or screen_size>18:
+        st.error('Please enter a valid screen size. Screen size must be between 10 and 18 and inches.')
         st.stop() 
+    
     if ssd==0 and hdd==0:
        st.error('SSD and HDD both can not be zero.')
        st.stop() 
